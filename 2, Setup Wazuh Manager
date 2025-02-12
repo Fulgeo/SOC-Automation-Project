@@ -1,0 +1,45 @@
+# Wazuh Manager Setup
+
+## Overview
+This document provides instructions on setting up a **Wazuh Manager** on a **Google Cloud Virtual Machine (VM)** with the specified configurations.
+
+## Virtual Machine Specifications
+- **RAM**: 8GB+
+- **HDD**: 50GB+
+- **OS**: Ubuntu 22.04 LTS
+
+## Installation Steps
+### 1. Set Up the Virtual Machine
+1. Log in to your **Google Cloud Console**.
+2. Navigate to **Compute Engine > VM Instances**.
+3. Click **Create Instance**.
+4. Configure the instance:
+   - **Machine Type**: At least 8GB RAM
+   - **Boot Disk**: Ubuntu 22.04 LTS with at least 50GB storage
+5. Allow HTTP and HTTPS traffic if needed.
+6. Click **Create** and wait for the VM to be provisioned.
+
+### 2. Install Wazuh Manager
+Run the following command on your VM:
+```sh
+curl -sO https://packages.wazuh.com/4.7/wazuh-install.sh && sudo bash ./wazuh-install.sh -a
+```
+
+### 3. Retrieve Default Credentials
+After installation, take note of the default credentials displayed at the end of the setup.
+If you missed it, retrieve them from the **wazuh-install-files.tar** archive:
+```sh
+tar -xvf wazuh-install-files.tar
+```
+
+### 4. Verify Wazuh Installation
+Run the following command to check the Wazuh service status:
+```sh
+sudo systemctl status wazuh-manager
+```
+If Wazuh is running successfully, you should see an active status.
+
+## Next Steps
+- Configure Wazuh agents to send logs to the manager.
+- Set up rules and alerts for threat detection.
+- Integrate with TheHive and Shuffle for automation.
